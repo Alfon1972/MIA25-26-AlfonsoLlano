@@ -121,8 +121,8 @@ def check_project_artifacts(
             "models/archive/{date}/model.pkl",
             "models/prod/metadata.pkl",
             "models/prod/model.pkl",
-            "outputs/Bottom 30 least frequent terms with freq g10.png",
-            "outputs/Top 30 most frequent terms.png",
+            "outputs/bottom_least_freq_terms.png",
+            "outputs/top_most_freq_terms.png",
         ]
 
     missing_dirs: list[Path] = []

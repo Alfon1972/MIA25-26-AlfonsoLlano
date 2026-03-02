@@ -39,6 +39,7 @@ Download `nltk` models:
 python install_nltk_models.py
 ```
 
+**Important!!**
 Create the following folders:
 ```
 models/
@@ -82,7 +83,7 @@ metadata.pickle
     metadata.pickle
 ```
 
-Usually, the convention name to subfoldersis assigned to the `model_version_id` metadata. So our `model_version_id` is `YYYYMM`
+Usually, the convention name to subfolders is assigned to the `model_version_id` metadata. So our `model_version_id` is `YYYYMM`
 
 
 # Project Structure
@@ -192,7 +193,7 @@ with [langdetect](https://pypi.org/project/langdetect/)
 4. Save the `Top 30 most frequent terms` and `Vocabulary frequency: Bottom ` plot showing top 30 most frequent terms in `output/top_most_freq_terms.png`
 5. Save the `Bottom 30 least frequent terms with freq g10` plot showing top 30 least frequent terms with a frequency larger than 10 counts in `output/bottom_least_freq_terms.png`
 
-For both use a vertical plot bar with proper ordering, compare with provided results in `outputs/sample/` This should give some hints on how to to set `max_df` and `min_df` for a proper model building experiment
+For both use a vertical plot bar with proper ordering, compare with provided results in `outputs/sample/`. This should give some hints on how to to set `max_df` and `min_df` for a proper model building experiment
 
 
 ##  Perform Hiper Hyperparameter tunning for a NaiveBayes model
@@ -304,6 +305,15 @@ For example:
 python train.py ./data/raw/New%20Spanish%20Academic%20Dataset.csv 202602 --min_df 5
 ```
 
+**Remember**: Copy the current artifacts from `models/prod` to the corresponding models/archive/`model_version_id`/.
+Resulting in something like:
+```
+models/
+    archive/
+        202602/
+            metadata.pkl
+            model.pkl
+```
 
 ## Develop score.py script and get prediction from production model artifacts
 Check that: In `models/prod` there are the required artifacts to build the model,
@@ -340,6 +350,13 @@ and write a simple MODEL_CARD.md
 For the  Model Card task, analyze:
 * Which terms are more important for the model and whether they make senses
 * Is the model robust for other languages?
+
+
+# Final checks and autoevaluation
+
+The final outputs with notebook `09_check_outputs.ipynb`. Then 
+
+
 
 # References 
 * [How to Set Up a Virtual Environment in Python – And Why It's Useful](https://www.freecodecamp.org/news/how-to-setup-virtual-environments-in-python/)
