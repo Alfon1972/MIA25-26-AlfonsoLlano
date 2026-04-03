@@ -66,6 +66,20 @@ Texto → Tokenización (NLTK) → Stemming (SnowballStemmer) → CountVectorize
 | Recall | 0.83 |
 | Accuracy | 0.82 |
 
+## Métricas en Test (63 muestras)
+| Métrica | Valor |
+|---------|-------|
+| Accuracy | 0.889 |
+| F1-Score | 0.759 |
+| Precisión | 0.733 |
+| Recall | 0.786 |
+
+### Matriz de Confusión
+|  | Pred F | Pred NF |
+|---|---|---|
+| **Real F** | 45 | 4 |
+| **Real NF** | 3 | 11 |
+
 ## Experimentos realizados
 1. **Naive Bayes (GANADOR):** CountVectorizer + BernoulliNB → F1=0.82
 2. **Gradient Boosting:** TfidfVectorizer + GradientBoostingClassifier → F1=0.79
