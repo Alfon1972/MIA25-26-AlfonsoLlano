@@ -1,9 +1,9 @@
 """
-Model configuration module for text classification using Naive Bayes.
+Model configuration module for text classification.
 
 This module:
 - Defines label mappings (F/NF).
-- Implements Spanish tokenization with stemming.
+- Implements Spanish tokenization with stemming and lemmatization.
 - Constructs and returns a scikit-learn pipeline that implements the champion model
 """
 import string
@@ -11,8 +11,8 @@ import typing
 import logging
 from unidecode import unidecode
 from sklearn.pipeline import Pipeline
-# some vectorizer: from sklearn.feature_extraction.text import XXXVectorizer
-# some model: from sklearn....<
+from sklearn.feature_extraction.text import CountVectorizer
+from sklearn.naive_bayes import BernoulliNB
 
 import nltk
 from nltk.stem.snowball import SnowballStemmer
@@ -69,14 +69,12 @@ def tokenizer_lemma_es(text,
               and token.ent_type_ not in ['PER', 'LOC', 'ORG']
               ]
     return lemmas # list[str]
-    return stopwords_tok
 
 
 def get_model(
-    # your Hiperparameters:
-    min_df: int = 3,
+    min_df: int = 1,
     max_df: float = 0.5,
-    ...
+    max_features: int = 128,
 ):
     """
     Builds and returns a scikit-learn Pipeline for Spanish text classification
@@ -89,17 +87,23 @@ def get_model(
     Returns:
         sklearn.pipeline.Pipeline: A pipeline with vectorizer and a classifier.
     """
-    
+
     logging.info("Building pipeline...")
-    
-    # Your vectorization strategy
-    dtm_transformer = XXXVectorizer(
-        ...
+
+    # Vectorization strategy: Binary counts with stemming
+    dtm_transformer = CountVectorizer(
+        strip_accents="ascii",
+        lowercase=True,
+        tokenizer=tokenizer_stemmer_es,
+        ngram_range=(1, 1),
+        binary=True,
+        min_df=min_df,
+        max_df=max_df,
+        max_features=max_features
     )
 
-    # Your model
-    clf = ...
-
+    # Champion model: Bernoulli Naive Bayes
+    clf = BernoulliNB()
 
     # Champion pipeline architecture
     skl_pl = Pipeline([
@@ -107,5 +111,6 @@ def get_model(
         ('clf', clf)
     ])
 
+    logging.info("Pipeline built successfully!")
     return skl_pl
 
